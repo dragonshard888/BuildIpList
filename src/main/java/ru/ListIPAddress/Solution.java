@@ -11,7 +11,9 @@ import java.util.ArrayList;
 public class Solution {
     public  static void  main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.print("Укажите первый ip адрес:");
         String ipStartPosition = reader.readLine();
+        System.out.print("Укажите второй ip адрес:");
         String ipEndPosition = reader.readLine();
 
         ArrayList<String> list_ip = new ArrayList<String>();
@@ -27,7 +29,6 @@ public class Solution {
             ip_int_end[i] = 0xff & (int) ip_end.getAddress()[i];
         }
 
-        // int count =0;
         while (!compareIpStructure(ip_int_st, ip_int_end)) {
             if (ip_int_st[3] < 255) ip_int_st[3]++;
             else {
@@ -44,19 +45,20 @@ public class Solution {
             }
 
             list_ip.add(ip_int_st[0] + "." + ip_int_st[1] + "." + ip_int_st[2] + "." + ip_int_st[3]);
-            // count++;
+
         }
-        // System.out.println(count);
+
         list_ip.remove(list_ip.size() - 1);
+        System.out.println("Возможные адреса:");
         for (String x : list_ip) {
             System.out.println(x);
         }
     }
 
-    public static boolean compareIpStructure(int[] arr1, int[] arr2) throws UnknownHostException {
-        String tmp_ip1 = arr1[0] + "." + arr1[1] + "." + arr1[2] + "." + arr1[3];
-        String tmp_ip2 = arr2[0] + "." + arr2[1] + "." + arr2[2] + "." + arr2[3];
-        return InetAddress.getByName(tmp_ip1).equals(InetAddress.getByName(tmp_ip2));
+     static boolean compareIpStructure(int[] arr1, int[] arr2) throws UnknownHostException {
+         String tmp_ip1 = arr1[0] + "." + arr1[1] + "." + arr1[2] + "." + arr1[3];
+         String tmp_ip2 = arr2[0] + "." + arr2[1] + "." + arr2[2] + "." + arr2[3];
+         return InetAddress.getByName(tmp_ip1).equals(InetAddress.getByName(tmp_ip2));
+     }
 
-    }
 }
