@@ -26,7 +26,31 @@ public class Solution {
             ip_int_st[i] = 0xff & (int) ip_start.getAddress()[i];
             ip_int_end[i] = 0xff & (int) ip_end.getAddress()[i];
         }
-        compareIpStructure(ip_int_st,ip_int_end);
+
+        // int count =0;
+        while (!compareIpStructure(ip_int_st, ip_int_end)) {
+            if (ip_int_st[3] < 255) ip_int_st[3]++;
+            else {
+                ip_int_st[2]++;
+                ip_int_st[3] = 0;
+            }
+            if (ip_int_st[2] == 255) {
+                ip_int_st[1]++;
+                ip_int_st[2] = 0;
+            }
+            if (ip_int_st[1] == 255) {
+                ip_int_st[0]++;
+                ip_int_st[1] = 0;
+            }
+
+            list_ip.add(ip_int_st[0] + "." + ip_int_st[1] + "." + ip_int_st[2] + "." + ip_int_st[3]);
+            // count++;
+        }
+        // System.out.println(count);
+        list_ip.remove(list_ip.size() - 1);
+        for (String x : list_ip) {
+            System.out.println(x);
+        }
     }
 
     public static boolean compareIpStructure(int[] arr1, int[] arr2) throws UnknownHostException {
